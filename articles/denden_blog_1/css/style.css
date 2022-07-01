@@ -1,0 +1,40 @@
+.ul_line {
+  border: solid 2px #ffb03f;
+  padding: 0 0.5em;
+  position: relative;
+}
+
+ul li {
+  line-height: 1.5;
+  padding: 0.5em 0 0.5em 1.4em;
+  /*border-bottom: dashed 1px silver;*/
+  list-style-type: none!important;
+}
+
+/*
+ul li:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f138";
+  position: absolute;
+  left : 0.5em; 
+  color: #ffb03f; 
+}
+*/
+
+ul li:last-of-type {
+  border-bottom: none;
+}
+
+h2 {
+    padding: 0.5em;/*文字周りの余白*/
+    color:black;/*文字色*/
+    background: #fffaf4;/*背景色*/
+    border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+  }
+
+h3 {
+    padding: 0.5em;/*文字周りの余白*/
+    color:black;/*文字色*/
+    background: #fffaf4;/*背景色*/
+    border-left: solid 5px #f2fa7e;/*左線（実線 太さ 色）*/
+  }

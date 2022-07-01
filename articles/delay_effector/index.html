@@ -1,0 +1,173 @@
+<!-- 記事を書くためのテンプレートです。これを改変して下さい -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+	    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+	    </script>
+
+        <meta charset="utf-8">
+        <title>記事の例</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OGP設定 リンクは記事毎に変更してください -->
+	    <meta property="og:title" content="EIC電気工学研究会 公式ページ | ディレイエフェクタ" />
+	    <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles/delay_effector/index.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | ディレイエフェクタ" />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+	    <!-- ※Twitter共通設定 -->
+	    <meta name="twitter:card" content="summary" />
+
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../css/style.css">
+        <script src="../../js/bootstrap.min.js"></script>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html"><img src="../../img/EIC.png" width="50", heigth="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+    
+    <div class="container bg-white my-5 shadow">
+
+        <article class="py-3">
+            <!-- ここから記事を書き始めてください 例を乗っけます-->
+
+            <h2>ディレイエフェクターを作ってみた</h2>
+            <p>2020/10/31</p>
+            <hr>
+            <p>今年に入って、感染症の蔓延で自宅待機時間がめちゃくちゃ増えてギターを練習するようになりました。</p>
+            <p>そこで、ギターの音に効果を加えて楽しむエフェクターをいくつか買い漁っていたのですが、せっかく電気工学研究会で活動しているので
+            エフェクターを作ってみようと思いました。</p>
+            <p>私はすかんちというバンドのRollyさんというギタリストが大好きなので、この方が出ているエフェクター制作本
+            『Rollyと作るギターエフェクター』（2014/4/10発売）のp60~65を参考にしました。</p>
+            <h3>目次</h3>
+            <ul class="article_list">
+                <li>ディレイ エフェクターってなんやねん</li>
+                <li>作り始め</li>
+                <li>基盤に電子部品をハンダ付け</li>
+                <li>基盤以外の部品を繋ぐ</li>
+                <li>導通テスター&デバッグ</li>
+                <li>完成してません、反省</li>
+                <li>軽くディレイ　エフェクターの原理について</li>
+            </ul>
+            <h3>ディレイ エフェクターってなんやねん</h3>
+            <a href="https://www.youtube.com/watch?v=GFfjBR82r5w">「はじめてのディレイ・エフェクター【ギター博士】」</a>
+            <p>本当は完成したもので実演できるといいんですが、、今回完成しなかったのでギター博士に
+            登場していただきます。上リンクからどうぞ。</p>
+            <h3>作り始め</h3>
+            <img src="./img/IMG_0263.jpeg" width="100%">
+            <p>秋月から買った電子部品が山積みです汗</p>
+            <p>抵抗がたくさん。部品ケース買わないとな〜</p>
+            <h3>基盤に電子部品をハンダ付け</h3>
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="./img/IMG_0264.jpeg" width="100%">
+                    <p>基盤に配線が書かれた図が親切にもあったので、印刷して基盤に貼り付けて部品を載せていきました。</p>
+                </div>
+                <div class="col-md-3">
+                    <img  src="./img/IMG_0295.jpeg" width="100%">
+                    <p>部品を載せやすいように、粘土とクリップで基盤を固定しました。</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="./img/IMG_0293.jpeg" width="100%">
+                    <p>裏の配線も図の通りにハンダでつなげていきました。部品の足を切った時に余った針金を導線にしました。何気にこの作業が初めてやるのもあって一番大変な工程でした。</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="./img/IMG_0297.jpeg"width="100%">
+            <p>配線が終了したので基盤の上に重ねた紙を剥がしたところです。</p>
+                </div>
+            </div>
+
+            <h3>基盤以外の部品を繋ぐ</h3>
+            <p>基盤の外側には、スイッチボタン1個、ボリュームつまみ3個、アナログとステレオの入力端子2個、電池接続端子、青色LEDがあります。</p>
+            <p>配線図を読み慣れていない私は、テキストに記載の画像通り配線してみました。</p>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="./img/IMG_0308.jpeg" width="100%" class="py-3 px-3">
+                </div>
+                <div class="col-md-4">
+                    <img src="./img/IMG_0307.jpeg" width="100%" class="py-3 px-3">
+                </div>
+                <div class="col-md-4">
+                    <img src="./img/IMG_0303.jpeg" width="100%" class="py-3 px-3">
+                </div>
+            </div>
+            <p>何度も画像と照らし合わせて確認したので、この配線であっているはずなんですが、、、複雑な配線で少し自信がない。</p>
+            <h3>導通テスター&デバッグ</h3>
+            <p>ここが電子工作で1番肝心要のところです。</p>
+            <p>テスター（マルチメーター）の使い方は調べて分かったのですが、いざ回路のデバッグをやってみるとやり方がわからん！</p>
+            <p>これまでは、今回ほどの複雑な回路を組んだことがなかったので調べる箇所が少なくて済んだのですが、今回は難しい、、</p>
+            <p>自分なりに、ここを調べて、、などと当てずっぽうなデバッグをしてしまいました。導通しているのか、導線の問題か、ハンダ付けの問題か、部品がそもそも間違っているのか、部品の向きが間違っているのか、配線が間違っているのか、考えると可能性にキリがない。</p>
+                                    <p>ここで心が折れて放置してしまいました。ごめんなさい。</p>
+            <p>後日、最近はyoutubeでhow toが見れるのでそれでデバッグの仕方について勉強しているので、理大祭には間に合わないのですがなんとかデバッグして最後まで作り切りたいと思います。</p>
+            <p>後ほど、youtubeでデバッグのやり方を見て回路の切り分けが大事で、Output側からInput側へと回路を切って導通テストしていくと効率がいいんですね。自分で考えるのもいいけど一般的なやり方を勉強すべきだと思いました。</p>
+
+             <h3>完成してません、反省</h3>
+            <p>今回のディレイ エフェクターはテキスト記載の10個中9個目で回路が複雑な作品でした。シンプルな回路のBoosterエフェクターやFuzzエフェクターを作成してみて、簡単なものができてから複雑なDelayエフェクターを作成すべきでした。</p>
+            <a href="https://www.youtube.com/watch?v=GylWvqeNnhs">「テスターで回路の不具合を見つける方法」（電気工作youtuberなかしー氏）</a>
+            <p>とかを参考に勉強していきます。</p>
+            <p>回路図を読まずに、見たままありきでこれまで作ってきたので今回痛い目を見ました。回路図に忠実にこれからは作成していきたいと思います。</p>
+            <p>回路図の読み方、部品の特徴、デバッグのやり方について勉強していこうと思います。反省！！！！！</p>
+            <p>回路のデバッグが終わったら、アルミケースに収納しようと思います。</p>
+            <h3>軽くディレイ　エフェクターの原理について</h3>
+            <p>フィードバックループという回路によって入力した音が繰り返し回路の中で回っていて、音が遅れて繰り返すタイミングはPT2399というICによって決められているようです。</p>
+            <p>フィードバックループの途中に抵抗が入っているので、音は何度も通過するうちに減衰して消えていくそうです。</p>
+            <img src="./img/circuit_principle.jpeg"  width="100%">
+            <p>同書p60参照</p>
+            <!-- 記事終了部 -->
+        </article>
+
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Mail:eictusnoda@gmail.com</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+    
+    </body>
+</html>
