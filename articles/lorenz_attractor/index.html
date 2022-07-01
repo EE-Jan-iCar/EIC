@@ -1,0 +1,145 @@
+<!-- 記事を書くためのテンプレートです。これを改変して下さい -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+	    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+	    </script>
+
+        <meta charset="utf-8">
+        <title>アナログ回路で解くローレンツアトラクタ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OGP設定 リンクは記事毎に変更してください -->
+	    <meta property="og:title" content="EIC電気工学研究会 公式ページ | ローレンツアトラクタ（紹介）" />
+	    <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles/lorenz_attractor/index.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | ローレンツアトラクタ（紹介）" />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+	    <!-- ※Twitter共通設定 -->
+	    <meta name="twitter:card" content="summary" />
+
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../css/style.css">
+        <script src="../../js/bootstrap.min.js"></script>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html"><img src="../../img/EIC.png" width="50", heigth="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+    
+    <div class="container bg-white my-5 shadow">
+
+        <article class="py-3">
+            <!-- ここから記事を書き始めてください 例を乗っけます-->
+            
+            
+            <h2>アナログ回路で解くローレンツアトラクタ</h2>
+            <p>2021/9/20</p>
+            <hr>
+            <img src="./img/img1.png" width="40%">
+            <p>今回はアナログ回路で微分方程式を解いて、ローレンツアトラクタを出力する回路を作ってみました</p>
+            <hr>
+            <h3>目次</h3>
+            <ul class="article_list">
+                <li>ローレンツアトラクタ（ローレンツ方程式）とは？</li>
+                <li>カオスとは？</li>
+                <li>回路設計・製作</li>
+                <li>実際の動作</li>
+                <li>まとめ</li>
+            </ul>
+            <hr>
+            <h3>ローレンツアトラクタ（ローレンツ方程式）とは？</h3>
+            <p>ローレンツ方程式とはこのような式で表される微分方程式で、主にp = 10、r = 28、b = 8/3 の場合のものが有名です</p>
+            <img src="./img/img2.png" width="40%">
+            <p>実際にこれを解いてx、y、z座標で表示するとこんな感じになります</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VuttMOjHJDU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <hr>
+            <h3>カオスとは？</h3>
+            <p>カオスとは、最初の状態（初期値）の微妙な違いによって、そのあとの現象が大きく変わる現象をさします。バタフライ効果という名前でも有名です</p>
+            <p>試しに先ほどのローレンツアトラクタでxの初期値を0.000001だけずらした軌道を同時に表示してみます</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/oIHOTmHCuaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p>このように最初は違いがわかりませんが、しばらくするとズレていき全く違う軌道になりました</p>
+            <p>今回はこのローレンツアトラクタをアナログ回路で解く回路を作りました</p>
+            <hr>
+            <h3>回路設計・製作</h3>
+            <img src="./img/img3.png" width="50%">
+            <p>回路構成はx、y、zそれぞれの積分回路３つと乗算回路２つ。</p>
+            <p>また元のローレンツ方程式ではx、y、zの値が±20～±50になっているので、x、y、zをそれぞれ100x、100y、100zで置き換えて値の中身を1/100にした方程式をもとに、±200 mV～±500 mVで動くように回路を設計しました</p>
+            <p>実際に作成した回路はこちら</p>
+            <img src="./img/img1.png" width="30%">
+            <br><br>
+            <img src="./img/img4.png" width="30%">
+            <hr>
+            <h3>実際の動作</h3>
+            <p>4回路入りオペアンプの残り一つは単電源から両電源を作るように、また初めは電圧が回転の中心に収束してしまったので抵抗を追加して修正</p>
+            <p>肝心の電圧波形は</p>
+            <p>x</p>
+            <img src="./img/img6.png" width="30%">
+            <br><br>
+            <p>y</p>
+            <img src="./img/img7.png" width="30%">
+            <br><br>
+            <p>z</p>
+            <img src="./img/img8.png" width="30%">
+            <br><br>
+            <p>といった具合になりました</p>
+            <hr>
+            <h3>まとめ</h3>
+            <p>XY mode使えるオシロスコープを持っておらず、簡易オシロでの動作確認ですがそれっぽい波形を確認することができました</p>
+
+
+            <!-- 記事終了部 -->
+        </article>
+
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Mail:eictusnoda@gmail.com</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+    
+    </body>
+</html>
