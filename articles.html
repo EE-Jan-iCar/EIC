@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+	    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+	    </script>
+
+        <meta charset="utf-8">
+        <title>記事・作品</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OGP設定 -->
+	    <meta property="og:title" content="EIC電気工学研究会 公式ページ | 記事・作品" />
+	    <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | 記事・作品" />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+	    <!-- ※Twitter共通設定 -->
+	    <meta name="twitter:card" content="summary" />
+
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="./css/bootstrap.min.css" />
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/bootstrap.min.js"></script>
+
+        <!-- jqueryの読み込み-->
+        <script src="./js/jquery-3.5.1.min.js"></script>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="./index.html"><img src="./img/EIC.png" width="50", heigth="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="./index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="./articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+
+    <!-- ヘッドライン -->
+    <div class="position-relative overflow-hidden pt-5 px-5 text-center bg-white rounded">
+        <div class="col-md-5 p-lg-5 mx-auto ">
+            <h1 class="display-4 fw-normal">記事・作品</h1>
+            <p class="lead fw-normal">WORKS</p>
+        </div>
+    </div>
+
+    <!-- tag分け -->
+    <div class="pt-5 container">
+        <div class="row text-center bg-white shadow">
+
+            <div class="my-4 col-sm-4 rounded">
+                <a data-set="blog"><img class= "rounded-circle bg-secondary shadow" width="120" height="120" src="./img/icon1.png"></a>
+                <a class="noneunderbar text-body" data-set="blog"><h3>ブログ</h3></a>
+            </div>
+
+            <div class="my-4 col-sm-4 rounded">
+                <a data-set="elec"><img class="rounded-circle bg-info shadow" width="120" height="120" src="./img/icon2.png"></a>
+                <a class="noneunderbar text-body" data-set="elec"><h3>電子工作</h3></a>
+            </div>
+
+            <div class="my-4 col-sm-4 rounded">
+                <a data-set="prog"><img class="rounded-circle bg-primary shadow" width="120" height="120" src="./img/icon3.png"></a>
+                <a class="noneunderbar text-body" data-set="prog"><h3>プログラミング</h3></a>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- 記事一覧 サムネは20:11 ここに書き足していく タグはelec, blog, progのいずれかを入れる。-->
+    <div class="py-5 bg-light">
+        <div class="container">
+            <div class="row" id="items">
+
+                <div class="col-sm-4" data-group="elec">
+                    <div class="card shadow my-3">
+                        <a href="./articles/radicon/index.html"><img src="./articles/radicon/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/radicon/index.html"><p class="card-title">ESP-WROOM-32 を用いた Wi-Fi ラジコンカーの作成</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/radicon/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">電子工作</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="elec">
+                    <div class="card shadow my-3">
+                        <a href="./articles/electro_piano/index.html"><img src="./articles/electro_piano/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/electro_piano/index.html"><p class="card-title">Arduinoで作る電子ピアノ</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/electro_piano/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">電子工作</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="elec">
+                    <div class="card shadow my-3">
+                        <a href="./articles/delay_effector/index.html"><img src="./articles/delay_effector/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/delay_effector/index.html"><p class="card-title">ディレイエフェクターを作ってみた</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/delay_effector/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">電子工作</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="elec">
+                    <div class="card shadow my-3">
+                        <a href="./articles/plasma_ball/index.html"><img src="./articles/plasma_ball/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/plasma_ball/index.html"><p class="card-title">LC共振でプラズマボール</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/plasma_ball/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">電子工作</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="prog">
+                    <div class="card shadow my-3">
+                        <a href="./articles/typing_crud_1/index.html"><img src="./articles/typing_crud_1/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/typing_crud_1/index.html"><p class="card-title">エンジニア向けタイピングゲームのサイトを作ってみた(前編)</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/typing_crud_1/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">プログラミング</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="prog">
+                    <div class="card shadow my-3">
+                        <a href="./articles/typing_crud_2/index.html"><img src="./articles/typing_crud_2/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/typing_crud_2/index.html"><p class="card-title">エンジニア向けタイピングゲームのサイトを作ってみた(後編)</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/typing_crud_2/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">プログラミング</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="prog">
+                    <div class="card shadow my-3">
+                        <a href="./articles/get_the_cats/index.html"><img src="./articles/get_the_cats/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/get_the_cats/index.html"><p class="card-title">OpenSiv3Dを用いた簡単なゲームの作成</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/get_the_cats/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">プログラミング</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="blog">
+                    <div class="card shadow my-3">
+                        <a href="./articles/denden_blog_1/index.html"><img src="./articles/denden_blog_1/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/denden_blog_1/index.html"><p class="card-title">電電一年で生き延びるためには</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/denden_blog_1/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">ブログ</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="elec">
+                    <div class="card shadow my-3">
+                        <a href="./articles/inverted_pendulum_1/index.html"><img src="./articles/inverted_pendulum_1/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/inverted_pendulum_1/index.html"><p class="card-title">ステッピングモーターで作る倒立振子</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/inverted_pendulum_1/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">電子工作</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="elec">
+                    <div class="card shadow my-3">
+                        <a href="./articles/lorenz_attractor/index.html"><img src="./articles/lorenz_attractor/img/thumbnail.png" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/lorenz_attractor/index.html"><p class="card-title">アナログ回路で解くローレンツアトラクタ</p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/lorenz_attractor/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">電子工作</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4" data-group="prog">
+                    <div class="card shadow my-3">
+                        <a href="./articles/timetable/index.html"><img src="./articles/timetable/img/thumbnail.jfif" width="100%" height="225"></a>
+                        <div class="card-body">
+                            <a class="text-body noneunderbar" href="./articles/timetable/index.html">乗換案内のプログラム<p class="card-title"></p></a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="./articles/timetable/index.html" type="button" class="btn btn-sm btn-outline-secondary">見る</a><small class="text-muted text-end">プログラミング</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Mail:eictusnoda@gmail.com</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+
+        <!-- 絞り込み機能実装 -->
+        <script>
+            function filter_func()
+            {
+                var filter, cards, card_container, filter_id;
+                card_container = document.getElementById("items");
+                cards = card_container.getElementsByClassName("card");
+                for(i=0; i<cards.length; i++)
+                {
+                    console.log("hello");
+                    if(i==1)
+                    {
+                        cards[i].style.display = "";
+                    }
+                    else
+                    {
+                        cards[i].style.display = "none"; 
+                    }
+                }
+            }
+        </script>
+        <script>
+            $(document).ready(function(e) {
+              $("[data-set]").click(function(e) {
+                  console.log("hello");
+                if (this.dataset.set == "all") {
+                  $("[data-group]").show();
+                  return false;
+                }
+                var $currentLists = $("[data-group=" + this.dataset.set + "]");
+                $("[data-group]").not($currentLists).hide();
+                $currentLists.show();
+              });
+            });
+            </script>
+    </body>
+</html>
