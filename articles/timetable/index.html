@@ -1,0 +1,119 @@
+<!-- 記事を書くためのテンプレートです。これを改変して下さい -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+	    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+	    </script>
+
+        <meta charset="utf-8">
+        <title>時刻表</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OGP設定 リンクは記事毎に変更してください -->
+	    <meta property="og:title" content="EIC電気工学研究会 公式ページ | " />
+	    <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles/example/index.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | " />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+	    <!-- ※Twitter共通設定 -->
+	    <meta name="twitter:card" content="summary" />
+
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../css/style.css">
+        <script src="../../js/bootstrap.min.js"></script>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html"><img src="../../img/EIC.png" width="50", heigth="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+    
+    <div class="container bg-white my-5 shadow">
+
+        <article class="py-3">
+            <!-- ここから記事を書き始めてください 例を乗っけます-->
+            <h2>運河駅からの乗換案内の自作</h2>
+            <hr>
+            <p>何か便利なものが作れないかと考え、電気工学研究会活動の一環として、乗換案内システムの自作に挑戦してみました！</p>
+            <h3>どうやって乗換案内を作るのか？</h3>
+            <p>今回は、javascriptを利用して、webページ上で乗換案内ができるようにしました。</p>
+            <p>ひとまず、平日の東武アーバンパークライン(野田線)運河駅の柏方面の電車の出発時刻に関する案内を行うシステムを考えました。原理は以下の通りです。</p>
+            <ol>
+            <li>システム利用者の端末から、現在時刻の情報を取得します。</li>
+            <li>現在時刻の情報を利用して、独自の運河駅の時刻表データから、次の電車以降の電車の発車時刻や行き先などの情報を抽出します。</li>
+            <li>抽出した情報を、見やすく表示します。</li>
+            </ol>
+            <h3>システムの使い方</h3>
+            <p>簡単です。<b style="color: red;">webページを開くだけです。</b></p>
+            <p><a href="app/b.html">乗り換え案内システム</a></p>
+            <h3>オプション設定も付けました</h3>
+            <p>例えば、</p>
+            <ul>
+            <li>急行が停まらない駅の利用者向けの機能として、普通電車のみの検索ができます。</li>
+            <li>もっと後に出発する電車の情報や、すでに発車した電車の情報も確認できます。</li>
+            </ul>
+            <h3>システムをより良くするには</h3>
+            <p>以下のような改善、改良の策が考えられます。</p>
+            <ul>
+            <li>到着駅を入力すれば、出発駅の情報だけでなく、到着駅の情報も確認できるようにする。</li>
+            <li>途中駅で乗換するとき、乗換先の電車の発車時刻や乗換方法も案内する。</li>
+            <li>電車の遅延や運休の有無を表示する。</li>
+            <li>平日だけでなく、土日祝にも対応する。</li>
+            <li>バグの修正など</li>
+            </ul>
+            
+            
+            <!-- 記事終了部 -->
+        </article>
+
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Mail:eictusnoda@gmail.com</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+    
+    </body>
+</html>

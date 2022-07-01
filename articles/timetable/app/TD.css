@@ -1,0 +1,64 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2021/05/05, 10:18:45
+    Author     : *******
+*/
+
+
+body{
+    background-color: #ccff99;
+  /*font-family: "Meiryo", serif;*/
+    font-size: 0.8em;
+}
+
+pre{
+    
+}
+
+.depL{
+    font-size: 20px;
+    line-height: 26px;
+}
+.depM{
+    font-size: 16px;
+}
+
+.red  {color: red;}
+.redB {color: red;  font-weight: bold;}
+
+.boxA{
+    border: dashed 1px #000000;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.code1_0 {}
+.code1_1 {}
+.code1_2 {color: orange;} /* 区間急行 */
+.code1_3 {color: red   ;} /*   急行   */
+.code1_4 {color: purple;} /*   特急   */
+.code1_5 {color: purple;} /*   特急   */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

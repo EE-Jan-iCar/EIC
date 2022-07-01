@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <title>TD19 運河 下り</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="TD.css">
+    </head>
+    <body>
+        <header id="header">
+            運河駅 南行き(柏方面)<br>
+            Unga Sta. (For Kashiwa)
+        </header>
+        <br>
+        <p> 現在時刻: <span id="clock">**:**:**.**</span></p>
+        <input type="checkbox" id="auto_check" checked>
+            発着情報の自動更新(データ通信量は増えないと思います。)<br>
+        <br>
+        
+        到着駅選択 / choose your destination<br>
+        <input type="radio" name="arr" onclick="arr_info('none')" checked>
+            現在、この機能は開発中につき使えません。<br>
+        
+        
+        <br><br>
+        詳細設定<br>
+        <div class="boxA">
+            <input type="radio" name="exp" onclick="user_exp=2, fDep()">
+                有料特急を含めて検索する<br>
+            <input type="radio" name="exp" onclick="user_exp=1, fDep()" checked>
+                有料特急を<span class="redB">除外</span>する<br>
+            <input type="radio" name="exp" onclick="user_exp=0, fDep()">
+                各駅停車,普通<span class="redB">のみ</span>を検索する<br>
+        </div>
+        <br><br><br><br><br>
+        
+        <input type="button" value="前の電車" onClick="before(5)">
+                <span id="show_before"></span><br>
+        <input type="button" value="もっと表示" onClick="add_i_max(5)">
+                <span id="show_i_max">5</span>列車分を表示中<br>
+        <input type="button" value="リセット" onClick="reset(0,5)">
+                <span></span><br>
+        <br>
+        
+        
+        <p> 現在時刻: <span id="clock2">**:**:**.**</span></p>
+        
+        次の電車は / Next departure:<br>
+        <span id="test1"></span><br>
+        <span id="depArea">Please wait .......</span><br>
+        
+        
+        <script src="b.js"></script>
+        &ensp;頃まで
+        <br>
+        （時刻表が更新された場合に、正しい時刻が表示できなくなるため。）
+        <br><br><br>
+        
+        
+        ★このページを「お気に入り登録」「ホーム画面に追加」しよう！<br>
+            登録・削除の方法は
+                <a href="https://www.iscle.com/web-it/add-home-icon.html">
+                こちら（外部サイト）</a>
+            <br><br>
+        <a href="#">ページ上部へ</a>
+        <br><br>
+        
+    
+    </body>
+</html>
+
+<!--
+    &emsp;&ensp;&nbsp;
+        <select name="destination">
+            <option value="none">到着駅選択</option>
+            <option value="TD22">流山おおたかの森</option>
+            <optgroup label="TX つくばエクスプレス線">
+                <option value="TXa">南流山,北千住(TX),秋葉原 方面</option>
+                <option value="TXb">守谷,つくば 方面</option>
+            </optgroup>
+            <option value="TD24">柏</option>
+            <optgroup label="乗り換え">
+                <option value="TDb">新鎌ヶ谷,船橋 方面</option>
+            </optgroup>
+            <optgroup label="常磐線(快速)">
+                <option value="JJa">松戸,北千住(JR),上野,東京,品川 方面</option>
+                <option value="JJb">我孫子,取手,土浦,水戸,勝田 方面</option>
+            </optgroup>
+        </select>
+-->
