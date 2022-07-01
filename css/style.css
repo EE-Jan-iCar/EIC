@@ -1,0 +1,16 @@
+/* 基本的に全てのページで読み込んでください */
+
+/* navbarにかぶさる物がないようにするための措置 */
+body{
+    padding-top: 70px;
+}
+
+/* footer表示 */
+footer{
+    background-color:gray;
+    color: white;
+}
+
+.noneunderbar{
+    text-decoration: none !important;
+}
