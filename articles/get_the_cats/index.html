@@ -1,0 +1,147 @@
+<!-- 記事を書くためのテンプレートです。これを改変して下さい -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+	    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+	    </script>
+
+        <meta charset="utf-8">
+        <title>記事の例</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OGP設定 リンクは記事毎に変更してください -->
+	    <meta property="og:title" content="EIC電気工学研究会 公式ページ | get the cats" />
+	    <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles/get_the_cats/index.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | get the cats" />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+	    <!-- ※Twitter共通設定 -->
+	    <meta name="twitter:card" content="summary" />
+
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../css/style.css">
+        <script src="../../js/bootstrap.min.js"></script>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html"><img src="../../img/EIC.png" width="50", heigth="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+    
+    <div class="container bg-white my-5 shadow">
+
+        <article class="py-3">
+            <!-- ここから記事を書き始めてください 例を乗っけます-->
+
+            <h2>OpenSiv3Dを用いた簡単なゲームの作成</h2>
+            <p>2021/02/24</p>
+            <hr>
+            <p>電気工学研究会活動の一環として、パソコンで遊べるゲームを作成しました。慣れないプログラミングの練習も兼ねています。</p>
+            <h3>計画</h3>
+            <p>C++しか触ったことがないため、それを使ってゲームを作る。C++でちょっとしたゲームを作るのには OpenSiv3D というライブラリが便利だ。ねこはかわいい。ねこを登場させよう。</p>
+            <p>以上が事前に立てた計画（怪文書）です。しかしこれだとどういうゲームなのか決まっていません。計画というより感想です。そこで OpenSiv3D のチュートリアルにある種々の要素から作れそうなゲームを考案しました。その名を、”GET THE CATS!”。ねこを捕まえろ！という文章を DeepL に入力した結果となっています。</p>
+            <p>制限時間内にライトを使って暗闇を照らし、できるだけ多くのねこを見つけ出す、そういう感じのゲームです。</p>
+            <p>さて、ゲームの仕様が（自分の脳内で）固まったあとは、コードを書いていく準備をします。というのも私はかなりプログラミングが苦手なようで、初めにきちんとした見通しを立てておかないと、コードがぐちゃぐちゃになり、完成する前に挫折してしまうということが広く知られています。そこでクラス図もどき、シーケンス図もどきを作成し、それに沿ってプログラミングしていこうというのです。以下に示すのはクラス図もどきです。シーケンス図もどきはフリーハンドでルーズリーフにごちゃごちゃ書いてしまったのでここには載せません。</p>
+            <img src="./img/classfig.png" width="100%" class="py-5 px-5"/>
+
+            <h3>プログラミング</h3>
+            <p>準備が出来たらいざ、プログラミングです。あまり性能の良いパソコンを使っていないこともあり visual studio を実行することで狂ったように回転するファンの音を聞きながら、ローマ字をポチポチ入力していきます。</p>
+            <p>上記のクラス図もどきにあるように、”GET THE CATS!”はタイトルシーン、ゲームシーン、リザルトシーンから成ります。名前から大体の意味は分かると思いますが、タイトルシーンはタイトル画面のことです。ゲームをスタートするためのボタンさえあればひとまず問題ないでしょう。ゲームシーンはこのプロジェクトの肝です。立てた計画通りに実装するよう頑張ります（頑張っても無理そうなら計画をもっと簡単にします）。リザルトシーンはゲームのリザルトを表示します。何匹のねこを見つけられたか、数字を表示します。加えて、タイトルシーンに戻るためのボタンがあればオッケーです。</p>
+            <p>まずはゲームシーンの実装の前に、暫定のタイトルシーンとリザルトシーンを用意しましょう。</p>
+            <div class="row py-3">
+                <div class="col-md-6">
+                    <img src="./img/protitle.png" width="100%" class="px-3"/>
+                </div>
+                <div class="col-md-6">
+                    <img src="./img/proresult.png" width="100%" class="px-3"/>
+                </div>
+            </div>
+            <p>OpenSiv3Dの開発者の方が用意してくださっているゲーム用テンプレートをいじり、プロトタイプのタイトルシーンとリザルトシーンを実装しました。配色が恐ろしいことになっていますが、問題ありません。あとで直します。こまごましたところは後から変えたくなることが多いので今は気にせず本筋のところだけ実装するのがいいと思います。</p>
+            <p>さて、いよいよゲームシーンの実装を行います。</p>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="./img/game0.png" width="100%"/>
+                    <p>これをこうして……</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="./img/game1.png" width="100%"/>
+                    <p>こうして……</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="./img/game2.png" width="100%"/>
+                    <p>こうして……</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="./img/game3.png" width="100%"/>
+                    <p>こうだ！</p>
+                </div>
+            </div>
+            
+            <p>はい、できました。以上で”GET THE CATS!”の90%は完了といっても過言ではないです。特にテストも行わないので、バグもありません（見つけようとしないだけ）。ここからデザインその他もろもろを整えます。センスの見せ所です（センスがあるとは言っていない）。</p>
+
+            <h3>結果</h3>
+            <p>できたゲームの動画を以下に載せておきます。またコードは<a href = "https://github.com/ikuramikan/get_the_cats" target="_blank">このサイト</a>に載せてあります。また<a href="./bin/Game.exe" download>ここ</a>からダウンロードできます。</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/0DhaRjE95zg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br>
+            <p>今回のプロジェクトはとても簡単に完了しました。OpenSiv3Dは初心者にも優しいライブラリでチュートリアルやその他諸々が充実しており特に困ることもなかったです。学校の授業で、プログラムを作成するという課題が出た時にもお世話になりました。</p>
+
+            <h3>最後に</h3>
+            <p>電気工学研究会は常に理科大野田キャンパス生の新入部員を募集しています。初心者大歓迎です。私もほとんど初心者です。少しでも興味がある人がいたら気軽にご連絡ください。<a href="https://twitter.com/EIC_tus" target="_blank">Twitter</a>にDMくれると早めに気づくことが出来ると思います。</p>
+            
+
+            
+            <!-- 記事終了部 -->
+        </article>
+
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Mail:eictusnoda@gmail.com</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+    
+    </body>
+</html>
