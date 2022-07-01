@@ -1,0 +1,174 @@
+<!-- 記事を書くためのテンプレートです。これを改変して下さい -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+	    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+	    </script>
+
+        <meta charset="utf-8">
+        <title>記事の例</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- OGP設定 リンクは記事毎に変更してください -->
+	    <meta property="og:title" content="EIC電気工学研究会 公式ページ | typingcrud" />
+	    <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles/typing_crud_2/index.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | typingcrud" />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+	    <!-- ※Twitter共通設定 -->
+	    <meta name="twitter:card" content="summary" />
+
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../css/style.css">
+        <script src="../../js/bootstrap.min.js"></script>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html"><img src="../../img/EIC.png" width="50", heigth="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+    
+    <div class="container bg-white my-5 shadow">
+
+        <article class="py-3">
+            <!-- ここから記事を書き始めてください 例を乗っけます-->
+
+            <h2>エンジニア向けタイピングゲームのサイトを作ってみた(後編)</h2>
+            <p>2020/11/21</p>
+            <hr>
+            <p><a href="https://typingcrud.work" target="_blank">エンジニア向けタイピングゲームのサイト</a>を作ってみたのでその使用技術や過程について書きます</p>
+              <p>まず、作ったサイトは↓です</p>
+              <p><a href="https://typingcrud.work" target="_blank">https://typingcrud.work</a></p>
+              <p>前編はとりあえずサイトの機能や使い方の説明、後編はエンジニアやその他プログラミングの知識がある人向けに技術的な細かい話</p>
+              <p><a href="../typing_crud_1/index.html" >前回</a>の続きです</p>
+              <p>前回はサイトの概要や使い方を書きましたが、今回はどんな仕組みでサイトが動いてるのかについて専門用語たっぷりに書いてみます</p>
+              <p>用語の解説は省くのでわからない用語は各自調べていただければと思います</p>
+              <h3>使用技術</h3>
+              <p>フロントエンド</p>
+              <ul class="article_list">
+                <li>React：SPA用フロントエンドフレームワーク</li>
+                <li>Redux(ReduxToolKit)：Reactの状態管理</li>
+                <li>TypeScript：言語</li>
+              </ul><br>
+              <p>バックエンド</p>
+              <ul class="article_list">
+                <li>DynamoDB：NoSQL</li>
+                <li>APIgateway：APIエンドポイント</li>
+                <li>Lambda：DB操作</li>
+                <li>Cognito：認証</li>
+                <li>S3：ストレージ</li>
+                <li>CloudWatchLogs：ログ</li>
+              </ul><br>
+              <p>インフラ</p>
+              <ul class="article_list">
+                <li>CloudFront：CDN</li>
+                <li>S3：ホスティング</li>
+                <li>Route53：DNS</li>
+                <li>GitHub：コード管理及びCI/CD</li>
+                <li>GoogleAnalytics：アクセス解析</li>
+              </ul><br>
+
+              <h3>構成</h3>
+              <p>図にするとこんな感じ</p>
+              <img src="./img/1.jpeg" width="100%" />
+              <p>フロントエンドはReact、バックエンド及びインフラはAWS</p>
+              <p>SPAをS3でホスティングしてそこからサーバレスのAPIを叩くといった形であればごく一般的かなといった構成</p>
+              <p>CI/CDにはGitHubActionsを使用(Reactのビルド、S3へのデプロイ、CloudFrontのキャッシュの更新といった用途)しましたが、今のところ特に不満は無いです</p>
+              <p>以下、各分野で苦戦した点を挙げていきます</p>
+
+              <h3>フロントエンド</h3>
+              <p>前述の通りReactを使ってます</p>
+              <p>採用したきっかけはSPAのサイトを作ってみたかったのとVueやAngularよりなんとなく伸びる気がするという浅い理由から</p>
+              <p>状態管理には当然Reduxを使っていますが、作り始めてからReactの公式がHooksの利用を推奨したことが浸透してきたのでそれに合わせてコードを書き換えました</p>
+              <p>さらに、JavascriptではなくTypeScriptを採用しているのでこれら2つを覚えるという感じで学習コストはそこそこありました</p>
+              <p>その上で悩みの種となったのがReduxのディレクトリ構成です</p>
+              <p>これに関しては定番の悩みだと思いますが、コードが肥大化するにつれリファクタリングを繰り返し、二転三転した結果状態管理等のロジックと画面描画を切り分ける形をとりました</p>
+              <p>こういった感じでよりモダンで最新なReactの書き方を狙った結果、苦労した点がかなりあったので挙げてみます</p>
+              <ul class="article_list">
+                <li>ReduxToolKitの日本語の情報の少なさ</li>
+                <li>Hooksを用いたReactとTypeScriptの組み合わせに対する情報の少なさ</li>
+                <li>認証に使ったCognitoをReactから操作する際の情報の少なさ</li>
+              </ul><br>
+              <p>まず１つ目のReduxToolKitについて</p>
+              <p>これは従来のReduxの面倒な書き方を簡略化してくれるという意味でかなり有用でした(Reduxの学習コストがグッと下がったイメージ)、ただ一方でできて日が浅いことから当然情報は少なく別の意味での難しさはありました(一度理解すれば本当に便利)</p>
+              <p>次に2つ目のHooksについて</p>
+              <p>これはHooksというよりはTypeScriptに苦戦したという方が正しい気がしますが、作り始めた当初Hooks自体の情報量がそれほど多くなかった上TypeScriptと組み合わせた情報はさらに少なかったことが辛かった</p>
+              <p>次に3つ目のCognitoについて</p>
+              <p>これも2つ目とほぼ同じですが、Cognitoをフロントから操作する際にTypeScriptを併用している記事なんかが本当に少なかったことで時間を削られた</p>
+              <p>まとめると、「新しく出た技術」＋「型情報が必要なTypeScript」という組み合わせで苦戦した感じです</p>
+              
+              <h3>バックエンド</h3>
+              <p>前術の通りAWSでサーバレスです</p>
+              <p>これはシンプルなんで特に書くことは無いですが、強いて挙げると</p>
+              <ul class="article_list">
+                <li>Cognitoのカスタム属性が更新されない問題</li>
+                <li>NoSQLの辛み</li>
+              </ul><br>
+              <p>まず1つ目のカスタム属性について</p>
+              <p>これはどういうことかと言うと、Cognitoでユーザーを削除した後に削除したユーザーと同じメールアドレスでユーザーを作成すると、先程削除したユーザーに設定されていたカスタム属性が新しく作ったはずのユーザーのカスタム属性に設定されてしまっていたという問題</p>
+              <p>これはサイトの機能上問題ないようには出来たんですが、この問題そのものは全く解決していないのでCognitoのバグだったりするのかなと思ってます</p>
+              <p>次に2つめのNoSQLの辛みについて</p>
+              <p>これは今更書くことでも無いですが、SQLで柔軟にテーブルを操作できるRDBMSに比べると今回のようなサービスだとNoSQLは辛い点が多かったです</p>
+              <p>テーブル設計も良くない点がかなりありますが、テーブルのスキャンを余儀なくされる場面が割とあってコスト的に良くない点が多かったです</p>
+              <p>また、ページネーション機能なんかも工夫が必要で楽しい反面不満もありました</p>
+              <h3>インフラ</h3>
+              <p>前述の通りほぼAWSを使ってます</p>
+              <p>これに関しては、「サーバーレス　≠　手軽」という感想</p>
+              <p>サーバレスであればEC2とRDSを起動させておくような構成に比べて放置しても常時課金されず、オートスケーリングもある程度自動でやってくれるため手軽に見えますが、さっき述べたようなNoSQLの辛みなんかに直面するので費用面では手軽でも実装上は手軽とも限らないと感じました(使いどころが大事だと実感)</p>
+              <h3>感想</h3>
+              <p>最初の図にあるみたいに「サーバレスAPIをSPAから叩く独自ドメインのサイト」というシンプルな構成でもフロントエンドでは最新のReactの文法や状態管理、バックエンドでは主要なAWSのマネージドサービス、インフラでは独自ドメインのサイトをSSL化して公開する流れや仕組みというような知識を一度に得られるので、ある程度プログラミングを勉強したけど目標がないという人がトライしてみると収穫は多いのかなという感想です</p>
+            
+            <!-- 記事終了部 -->
+        </article>
+
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Mail:eictusnoda@gmail.com</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+    
+    </body>
+</html>
