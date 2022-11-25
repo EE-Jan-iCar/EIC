@@ -227,6 +227,7 @@ function nowClock(){
             }
         }
         
+        /*
         if(timelimit[1] === 0 && i === 0){  //発車時刻前後1分以内のとき
             document.getElementById("time2").innerHTML
                     = "&ensp;<span class='redB'>まもなく発車</span>";
@@ -237,9 +238,7 @@ function nowClock(){
             if(hide > 0){
                 hide--;
             }
-            
-        }
-        
+        } */
         //document.getElementById("add-"+i).innerHTML = "achieved" + t0_s;
     }
 }
