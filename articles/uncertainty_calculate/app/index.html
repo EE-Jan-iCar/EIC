@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>不確かさ 自動計算機</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body    {background-color: #ccff99; margin-left: 15px;}
+            /* a    {background-color: #888888; color: orange;}*/
+            h1      {margin-bottom: 0;}
+            h2      {margin-top: 5em; margin-bottom: 0; color: #000000;
+                     text-decoration: underline; background-color: #88cc66;}
+            h3      {margin-bottom: 0.1em; margin-top: 0.5em;}
+            
+            #nav    {position: fixed;  width: 100%;  max-width: 45%;   max-height: 100%;
+                     top: 0;  right: 0;  padding: 10px 10px 10px 10px;
+                     background-color: yellow;  border: 5px double red;
+                     overflow-y: scroll;}
+            #nav h2 {margin-top: 10px;  margin-bottom: 2px;  color: #fff;
+                     text-decoration: underline;  background-color: red;}
+            #nav .A {margin-top: 10px;  margin-bottom: 0;  color: #fff;  font-weight: bold;
+                     background-color: #000;}
+            #nav a  {font-weight: bold;  font-size: large;  margin-top: 10px;  color: blue;}
+            #nav b  {text-decoration: underline;}
+            #nav p  {margin-top: 10px;  margin-bottom: 10px;}
+            #nav ul {margin-top: 10px;  margin-bottom: 10px;}
+            
+            
+            .red    {color: red;}
+            .redB   {color: red; font-weight: bold;}
+            
+            input[type = "button"]:hover:not(input:disabled) {cursor: pointer;}
+            #nav input[type = "button"] {font-weight: bold;  border: 2px solid #000;
+                    border-radius: 5px;}
+            
+            .resTop {color: #ffffff; background-color: #000000;}
+            .btn    {margin-top: 10px; margin-bottom: 10px;}
+            .reset  {}
+        </style>
+    </head>
+    
+    
+    <body>
+        <h1>不確かさ 自動計算機</h1>
+        <u class="redB">注: 設計ミスがあっても責任を負いません</u>
+        
+        <nav id="nav">
+            (広告 Advertisememt)
+            <input type="button" value="× 広告を折りたたむ" onClick="hideAd(true)"
+                   style="float: right;"><br>
+            <h2>電気磁気学Ｃの履修者へ 朗報！</h2>
+            <a href="https://colab.research.google.com/drive/1Ry7hUMcjRtykxlTLrh_zX3EqJ-hLqgCs?usp=share_link"
+                    target="_blank" rel="noreferrer noopener">
+                    ★ Click HERE ! ★ コンデンサ端部の電界シミュレーション ★</a><br>
+            <p>&ensp;・ シミュレーションの書き方が分からない……(泣)<br>
+               &ensp;・ Pythonの使い方が分からないよ……<br>
+               &ensp;・ 誰かのソースをコピペしたいけど、どれが良いの？</p>
+            <span class="A">&nbsp;そんな あなたには コレ!!&nbsp;</span><br>
+            <a href="https://colab.research.google.com/drive/1Ry7hUMcjRtykxlTLrh_zX3EqJ-hLqgCs?usp=share_link"
+                    target="_blank" rel="noreferrer noopener">
+                    ★ Click HERE ! ★ コンデンサ端部の電界シミュレーション ★</a><br>
+            <ul>
+                <li>詳しい <b>解説コメント付き</b>！</li>
+                <li>ソース作成に必要な <b>基本的な考え方も記載</b>！</li>
+                <li>作成者は 今年度GPA 3.30 のガチ勢! だから <b>信頼できる</b>！</li>
+                <li>ソース作成者に <b>気軽に質問できる</b>！ (履修者限定)</li>
+            </ul>
+            <h2>もう これを使うしかない！！</h2>
+            <a href="https://colab.research.google.com/drive/1Ry7hUMcjRtykxlTLrh_zX3EqJ-hLqgCs?usp=share_link"
+                    target="_blank" rel="noreferrer noopener">
+                    ★ Click HERE ! ★ コンデンサ端部の電界シミュレーション ★</a><br>
+            <p>&emsp;僕のソースを電磁気Ｃの課題に利用するときには、レポートの
+                    "参考にしたソース" 欄への記載を忘れないでくださいね。</p>
+            <input type="button" value="× 広告を折りたたむ" onClick="hideAd(true)"><br>
+        </nav>
+        
+        
+        
+        <h2 id="ab">はじめに</h2>
+        
+        <h3>目次</h3>
+        ・ <a href="#0">和･差 編</a><br>
+        ・ <a href="#1">積･商 編</a><br>
+        ・ <a href="#consts">数学定数・物理定数 代入機能</a><br><br>
+        <h3>空欄の扱いについて</h3>
+        ・ 空欄の値は、計算時に無視します。<br>
+        ・ 不確かさが空欄の場合、不確かさをもたない値として扱います。<br>
+        ・ 指数部分が空欄の場合、0 として扱います。<br><br>
+        
+        <h3>オプション設定 (任意)</h3>
+        <label><input type="checkbox" id="comma_dot"> コンマ(,)を小数点として使用</label><br>
+        <label><input type="checkbox" id="set_rss"> (和・差 編 のみ)
+            各変数が独立と仮定し、二乗和平方根を計算する</label><br>
+        <label><input type="checkbox" id="ans_style" onChange="ans_style_changed();">
+            解答の形を指定する </label>(不確かさの桁数:
+            <select id="ans_style_1" disabled>
+                <option value="1">１ケタ&emsp;</option>
+                <option value="2" selected>２ケタ&emsp;</option>
+                <option value="3">３ケタ(非推奨)</option>
+            </select>)<br>
+            &emsp;&emsp;<label><input type="checkbox" id="ans_style_2" disabled>
+                不確かさに四捨五入を適用しない (切り上げを適用する)</label><br>
+        <label><input type="checkbox" id="u_enable" onClick="u_enable()">
+            不確かさの入力欄を有効にする</label><br>
+        <label><input type="checkbox" id="u2_enable" onClick="u2_enable()">
+            相対不確かさの入力欄を有効にする</label><br><br>
+        <a href="#">(ページトップへ)</a>
+        
+        
+        <h2 id="0">和･差 編</h2>
+        <!-- Under Construction .... 指数部分に入力できません (解消済) -->
+        
+        <h3>仕様</h3>
+        "<b> Ａ ＋ Ｂ ＋&ensp;……&ensp;＋ Ｅ </b>"<br>&emsp;を計算します。<br>
+        ※ 空欄があっても、計算されます。<br>
+        ※ Ａ ～ Ｅ は 負の数 でもＯＫ<br><br>
+        
+        <h3>入力欄&nbsp;(足し算)</h3>
+        <span id="0xx">
+            Ａ = ( <input type="text" id="000" size="5" onChange="changed(0,0,0)"> ±
+                <input type="text" id="001" size="5" onChange="changed(0,0,1)"> ) ×
+                10<sup><input type="text" id="002" size="1" onChange="changed(0,0,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="003" size="5" onChange="changed(0,0,3)"> )
+                &ensp;<input type="button" class="reset" value="RESET" onClick="reset(0,0)"><br>
+            Ｂ = ( <input type="text" id="010" size="5"> ±
+                <input type="text" id="011" size="5"> ) ×
+                10<sup><input type="text" id="012" size="1"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="013" size="5" onChange="u_is(0,1)"> )&ensp;
+                <input type="button" value="RESET" onClick="reset(0,1)"><br>
+            Ｃ = ( <input type="text" id="020" size="5"> ± <input type="text" id="021" size="5"> )
+                × 10<sup><input type="text" id="022" size="1"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="023" size="5" onChange="u_is(0,2)"> )&ensp;
+                <input type="button" value="RESET" onClick="reset(0,2)"><br>
+            Ｄ = ( <input type="text" id="030" size="5"> ± <input type="text" id="031" size="5"> )
+                × 10<sup><input type="text" id="032" size="1"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="033" size="5" onChange="u_is(0,3)"> )&ensp;
+                <input type="button" value="RESET" onClick="reset(0,3)"><br>
+            Ｅ = ( <input type="text" id="040" size="5"> ± <input type="text" id="041" size="5"> )
+                × 10<sup><input type="text" id="042" size="1"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="043" size="5" onChange="u_is(0,4)"> )&ensp;
+                <input type="button" value="RESET" onClick="reset(0,4)"><br>
+        </span>
+        
+        <input type="button" value="計算実行" class="btn" onClick="go0()">&emsp;
+        <input type="button" value="RESET" onClick="reset(0,-4),go0()"><br>
+        
+        <h3><span class="resTop">&ensp;計 算 結 果&ensp;</span></h3>
+        RESULT : <b id="result0">？？？</b><br>
+        
+        計算結果を代入する場合:
+        <select id="select_0" onChange="Selected(0)" disabled>
+            <option value="default" selected>結果の代入先を選択する</option>
+            <optgroup label="和･差 編:">
+                <option value="00">Ａ</option> <option value="01">Ｂ</option>
+                <option value="02">Ｃ</option> <option value="03">Ｄ</option>
+                <option value="04">Ｅ</option> </optgroup>
+            <optgroup label="積･商 編 分子:">
+                <option value="10">①</option> <option value="11">②</option>
+                <option value="12">③</option> <option value="13">④</option>
+                <option value="14">⑤</option> </optgroup>
+            <optgroup label="積･商 編 分母:">
+                <option value="20">❶</option> <option value="21">❷</option>
+                <option value="22">❸</option> <option value="23">❹</option>
+                <option value="24">❺</option> </optgroup>
+        </select><br><br>
+        <a href="#">(ページトップへ)</a>
+        
+        
+        
+        
+        <h2 id="1">積･商 編</h2>
+        
+        <h3>仕様</h3>
+        "<b>( ① × ② ×&ensp;……&ensp;× ⑤ ) ÷ ( ❶ × ❷
+        ×&ensp;……&ensp;× ❺ )</b>"<br>&emsp;を計算します。<br>
+        ※ 空欄があっても、計算されます。<br><br>
+        
+        <h3>入力欄&nbsp;(分子)</h3>
+        <span id="1xx">
+            ① = ( <input type="text" id="100" size="5" onChange="changed(1,0,0)"> ±
+                <input type="text" id="101" size="5" onChange="changed(1,0,1)"> ) ×
+                10<sup><input type="text" id="102" size="1"  onChange="changed(1,0,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="103" size="5" onChange="changed(1,0,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(1,0)"><br>
+            ② = ( <input type="text" id="110" size="5" onChange="changed(1,1,0)"> ±
+                <input type="text" id="111" size="5" onChange="changed(1,1,1)"> ) ×
+                10<sup><input type="text" id="112" size="1" onChange="changed(1,1,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="113" size="5" onChange="changed(1,1,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(1,1)"><br>
+            ③ = ( <input type="text" id="120" size="5" onChange="changed(1,2,0)"> ±
+                <input type="text" id="121" size="5" onChange="changed(1,2,1)"> ) ×
+                10<sup><input type="text" id="122" size="1" onChange="changed(1,2,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="123" size="5" onChange="changed(1,2,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(1,2)"><br>
+            ④ = ( <input type="text" id="130" size="5" onChange="changed(1,3,0)"> ±
+                <input type="text" id="131" size="5" onChange="changed(1,3,1)"> ) ×
+                10<sup><input type="text" id="132" size="1" onChange="changed(1,3,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="133" size="5" onChange="changed(1,3,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(1,3)"><br>
+            ⑤ = ( <input type="text" id="140" size="5" onChange="changed(1,4,0)"> ±
+                <input type="text" id="141" size="5" onChange="changed(1,4,1)"> ) ×
+                10<sup><input type="text" id="142" size="1" onChange="changed(1,4,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="143" size="5" onChange="changed(1,4,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(1,4)"><br><br>
+        </span>
+        
+        <h3>入力欄&nbsp;(分母)</h3>
+        <span id="2xx">
+            ❶ = ( <input type="text" id="200" size="5" onChange="changed(2,0,0)"> ±
+                <input type="text" id="201" size="5" onChange="changed(2,0,1)"> ) ×
+                10<sup><input type="text" id="202" size="1" onChange="changed(2,0,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="203" size="5" onChange="changed(2,0,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(2,0)"><br>
+            ❷ = ( <input type="text" id="210" size="5" onChange="changed(2,1,0)"> ±
+                <input type="text" id="211" size="5" onChange="changed(2,1,1)"> ) ×
+                10<sup><input type="text" id="212" size="1" onChange="changed(2,1,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="213" size="5" onChange="changed(2,1,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(2,1)"><br>
+            ❸ = ( <input type="text" id="220" size="5" onChange="changed(2,2,0)"> ±
+                <input type="text" id="221" size="5" onChange="changed(2,2,1)"> )
+                × 10<sup><input type="text" id="222" size="1" onChange="changed(2,2,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="223" size="5" onChange="changed(2,2,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(2,2)"><br>
+            ❹ = ( <input type="text" id="230" size="5" onChange="changed(2,3,0)"> ±
+                <input type="text" id="231" size="5" onChange="changed(2,3,1)"> ) ×
+                10<sup><input type="text" id="232" size="1" onChange="changed(2,3,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="233" size="5" onChange="changed(2,3,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(2,3)"><br>
+            ❺ = ( <input type="text" id="240" size="5" onChange="changed(2,4,0)"> ±
+                <input type="text" id="241" size="5" onChange="changed(2,4,1)"> ) ×
+                10<sup><input type="text" id="242" size="1" onChange="changed(2,4,2)"></sup>&ensp;
+                ( 相対不確かさ <input type="text" id="243" size="5" onChange="changed(2,4,3)"> )
+                &ensp;<input type="button" value="RESET" onClick="reset(2,4)"><br>
+        </span>
+        
+        <input type="button" class="btn" value="計算実行" onClick="go1()">&emsp;
+        <input type="button" value="RESET" onClick="reset(1,-4),go1()"><br>
+        
+        <h3><span class="resTop">&ensp;計 算 結 果&ensp;</span></h3>
+        RESULT : <b id="result1">？？？</b><br>
+        計算結果を代入する場合:
+        <select id="select_1" onChange="Selected(1)" disabled>
+            <option value="default" selected>結果の代入先を選択する</option>
+            <optgroup label="和･差 編:">
+                <option value="00">Ａ</option> <option value="01">Ｂ</option>
+                <option value="02">Ｃ</option> <option value="03">Ｄ</option>
+                <option value="04">Ｅ</option> </optgroup>
+            <optgroup label="積･商 編 分子:">
+                <option value="10">①</option> <option value="11">②</option>
+                <option value="12">③</option> <option value="13">④</option>
+                <option value="14">⑤</option> </optgroup>
+            <optgroup label="積･商 編 分母:">
+                <option value="20">❶</option> <option value="21">❷</option>
+                <option value="22">❸</option> <option value="23">❹</option>
+                <option value="24">❺</option> </optgroup>
+        </select><br>
+        <span id="result1_2"></span><br>
+        ※ 相対不確かさが大きいことは、<br>
+        &emsp; 測定値のばらつきが大きいことを意味する。<br>
+        &emsp; (↑必要であれば、考察に用いてください)<br><br>
+        <a href="#">(ページトップへ)</a>
+        
+        
+        
+        
+        <h2 id="consts">数学定数・物理定数 代入機能</h2>
+        
+        <h3>STEP１: 代入する定数を選択してください</h3>
+        
+        (数学定数)<br>
+        <label><input type="radio" name="consts" value="n271" onClick="constStep()">
+            <i>e</i> = 2.71828182845905
+            &ensp;<b>自然対数の底 (ネイピア数)</b></label><br>
+        <label><input type="radio" name="consts" value="n314" onClick="constStep()">
+            <i>π</i> = 3.14159265358979
+            &ensp;<b>円周率</b></label><br>
+        <br>
+        (物理定数)<br>
+        <label><input type="radio" name="consts" value="n662" onClick="constStep()">
+            <i>h</i> = 6.626 070 15 × 10<sup>-34</sup> J･s
+            &ensp;<b>プランク定数</b></label><br>
+        <label><input type="radio" name="consts" value="n910" onClick="constStep()">
+            <i>m</i><sub>0</sub> = 9.109 383 701 5(28) × 10<sup>-31</sup> kg
+            &ensp;<b>電子質量</b></label><br>
+        <label><input type="radio" name="consts" value="n138" onClick="constStep()">
+            <i>c</i> = 1.380 649 × 10<sup>-23</sup> J/K
+            &ensp;<b>ボルツマン定数</b></label><br>
+        <label><input type="radio" name="consts" value="n160" onClick="constStep()">
+            <i>e</i> = 1.602 176 634 × 10<sup>-19</sup> C
+            &ensp;<b>電気素量</b></label><br>
+        <label><input type="radio" name="consts" value="n885" onClick="constStep()">
+            <i>ε</i><sub>0</sub> = 8.854 187 812 8(13) × 10<sup>-12</sup> F/m
+            &ensp;<b>真空の誘電率</b></label><br>
+        <label><input type="radio" name="consts" value="n125" onClick="constStep()">
+            <i>μ</i><sub>0</sub> = 1.256 637 062 12(19) × 10<sup>-6</sup> H/m
+            &ensp;<b>真空の透磁率</b></label><br>
+        <label><input type="radio" name="consts" value="n299" onClick="constStep()">
+            <i>c</i> = 2.997 924 58 × 10<sup>8</sup> m/s
+            &ensp;<b>光速 (光の速さ)</b></label><br>
+        <label><input type="radio" name="consts" value="n602" onClick="constStep()">
+            <i>N</i><sub>A</sub> = 6.022 140 76 × 10<sup>23</sup> /mol
+            &ensp;<b>アボガドロ定数</b></label><br>
+        <br>
+        <h3>STEP２: オプションを選択してください</h3>
+        ・ 有効数字<input type="number" id="const_length" value="15"
+                min="1" max="15" disabled>桁にして代入する<br>
+        <br>
+        <h3>STEP３: 確認して代入先を選択</h3>
+        設定した定数: <b id="chosen_const">(まだ選択されていません)</b><br>
+        <select id="select_-1" onChange="Selected(-1)" disabled>
+            <option value="default" selected>結果の代入先を選択する</option>
+            <optgroup label="和･差 編:">
+            <option value="00">Ａ</option> <option value="01">Ｂ</option>
+            <option value="02">Ｃ</option> <option value="03">Ｄ</option>
+            <option value="04">Ｅ</option> </optgroup>
+            <optgroup label="積･商 編 分子:">
+            <option value="10">①</option> <option value="11">②</option>
+            <option value="12">③</option> <option value="13">④</option>
+            <option value="14">⑤</option> </optgroup>
+            <optgroup label="積･商 編 分母:">
+            <option value="20">❶</option> <option value="21">❷</option>
+            <option value="22">❸</option> <option value="23">❹</option>
+            <option value="24">❺</option> </optgroup>
+        </select><br>
+        
+        
+        
+        
+        
+        <br><br><br><br><br><br><br><br><br><br>
+        
+        
+        
+        <script>
+            for(let i = 0; i <= 2; i++){
+                for(let j = 0; j < 5; j++){
+                    document.getElementById(String(i) + String(j) + 1).disabled = true;
+                    document.getElementById(String(i) + String(j) + 3).disabled = true;
+                }
+            }
+            
+            const show = 10; // 小数第10位まで表示
+            const prefix = [["Y", 10, 24], ["Z", 10, 21], ["E", 10, 18], ["P", 10, 15], ["T", 10, 12],
+                            ["G", 10,  9], ["M", 10,  6], ["k", 10,  3], ["h", 10,  2], ["da",10,  1],
+                            ["d", 10, -1], ["c", 10, -2], ["m", 10, -3], ["µ", 10, -6], ["u", 10, -6],
+                            ["n", 10, -9], ["p", 10,-12], ["f", 10,-15], ["a", 10,-18], ["z", 10,-21],
+                            ["y", 10,-24], ["%", 10, -2]]; // SI接頭辞
+            var set_rss; // 二乗和平方根 (和･差 編)
+            var array0 = [[],[],[],[],[]], array1 = [[],[],[],[],[]],
+                array2 = [[],[],[],[],[]];
+            var result0 = [0, 0, 0, 0], result1 = [1,  , 0, 0],
+                result3 = [], result4 = [], Nconst;
+            
+            
+            
+            // 和・差 編
+            function go0(){
+                define();
+                result0 = [0, 0,  , 0];
+                
+                let maxOrder = -Infinity, error = false;
+                for(let i = 0; i < 5; i++){
+                    if(array0[i][0] !== 0 && array0[i][2] > maxOrder){
+                        maxOrder = array0[i][2];
+                    }
+                } // maxOrder は 指数の最大値
+                if(maxOrder === -Infinity) {maxOrder = 0;}
+                
+                for(let i = 0; i < 5; i++){
+                    while(array0[i][2] < maxOrder){
+                        array0[i][0] /= 10, array0[i][1] /= 10, array0[i][2] += 1;
+                    }
+                    if(array0[i][2] !== maxOrder) {error = true;}
+                } //alert(array0);
+                
+                for(let i = 0; i < 5; i++){
+                    result0[0] += array0[i][0];
+                    if(set_rss) {result0[1] += array0[i][1] * array0[i][1];}
+                           else {result0[1] += array0[i][1];} // 不確かさ
+                }
+                if(set_rss) {result0[1] = Math.sqrt(result0[1]);}
+                result0[2] = maxOrder;
+                corr(result0); //alert("abcde");
+                
+                document.getElementById("result0").innerHTML
+                    = "(&nbsp;" + result0[0] + "&nbsp;±&nbsp;" + result0[1]
+                    + "&nbsp;)&nbsp;×&nbsp;10<sup>" + result0[2] + "</sup>";
+                if(error){
+                    document.getElementById("result0").innerHTML
+                        += "<br>エラー: 計算ミスの可能性<br>"
+                        + "以下の値の誤差が大きい場合は計算ミスの可能性大<br>"
+                        + maxOrder + "=";
+                    for(let i = 0; i < 5; i++){
+                        document.getElementById("result0").innerHTML
+                            += array0[i][2] + "=";
+                    }
+                } else {
+                    document.getElementById("select_0").disabled = false;
+                }
+            }
+            
+            
+            
+            // 積・商 編
+            function go1(){
+                define();
+                result1 = [1,  , 0, 0];
+                
+                // result1 の計算
+                for(let i = 0; i < 5; i++){
+                    result1[0] *= array1[i][0], // かけ算
+                    result1[2] += array1[i][2]; // 指数部分
+                    if(set_rss) {result1[3] += array1[i][3] * array1[i][3];}
+                           else {result1[3] += array1[i][3];} // 相対不確かさ
+                }
+                for(let i = 0; i < 5; i++){
+                    if(array2[i][0] < 0) {result1[0] *= -1; array2[i][0] *= -1;}
+                    result1[0] /= array2[i][0], // わり算
+                    result1[2] -= array2[i][2]; // 指数部分
+                    if(set_rss) {result1[3] += array2[i][3] * array2[i][3];}
+                           else {result1[3] += array2[i][3];} // 相対不確かさ
+                }
+                if(set_rss) {result1[3] = Math.sqrt(result1[3]);}
+                result1[1] = Math.abs(result1[0]) * result1[3]; // 不確かさ算出
+                
+                // 整数部分が１桁になるようにする + 諸機能
+                corr(result1);
+                
+                document.getElementById("result1").innerHTML
+                    = "(&nbsp;" + result1[0] + "&nbsp;±&nbsp;" + result1[1]
+                    + "&nbsp;)&nbsp;×&nbsp;10<sup>" + result1[2] + "</sup><br>"
+                    + "(&ensp;相対不確かさ:&nbsp;" + (result1[3] * 100)
+                    + "&nbsp;％&nbsp;)";
+                
+                document.getElementById("select_1").disabled = false;
+            }
+            
+            
+            
+            // 代入_STEP１
+            function constStep(){ //alert("changed");
+                Nconst = nChange(); //alert(Nconst);
+                document.getElementById("const_length").disabled = false;
+                document.getElementById("select_-1").disabled = false;
+                document.getElementById("chosen_const").innerHTML
+                        = "(&nbsp;" + Nconst[0] + "&nbsp;±&nbsp;" + Nconst[1]
+                        + "&nbsp;)&nbsp;×&nbsp;10<sup>" + Nconst[2] + "</sup>";
+            }
+            
+            // 代入
+            function Selected(num){ //if(num < 0){alert("changed");}
+                let ok = false;
+                let to = document.getElementById("select_" + num).value;
+                if(to !== "default"){
+                    ok = confirm("結果を代入して良いですか？\n"
+                            + "この操作は取り消せません。");
+                }
+                if(ok){
+                    let result;
+                    if(num < 0)   {result = Nconst ;}
+                    if(num === 0) {result = result0;}
+                    if(num === 1) {result = result1;}
+                    if(num === 3) {result = result3;}
+                    if(num === 4) {result = result4;}
+                    for(let i = 0; i < 3; i++){
+                        document.getElementById(to + i).value = result[i];
+                    }
+                }
+                document.getElementById("select_" + num).value = "default";
+            }
+            
+            
+            
+            // 値の読み取り
+            function define(){define1(); define2();}
+            function define1(){
+                set_rss = document.getElementById("set_rss").checked;
+                for(let i = 0; i < 5; i++){
+                    for(let j = 0; j < 4; j++){  // 値の取得
+                        array0[i][j] = value3Math(0, i, j);
+                        array1[i][j] = value3Math(1, i, j);
+                        array2[i][j] = value3Math(2, i, j);
+                    }
+                    if(array2[i][0] === 0) {array2[i][0] = undefined;} //分母＝ゼロ
+                }
+            }
+            function define2(){  // 相対不確かさ の計算
+                for(let i = 0; i < 5; i++){
+                    array0[i][3] = Math.abs(array0[i][1] / array0[i][0]);
+                    array1[i][3] = Math.abs(array1[i][1] / array1[i][0]);
+                    array2[i][3] = Math.abs(array2[i][1] / array2[i][0]);
+                }
+            }
+            
+            
+            // 解答の形
+            function ans_style(){
+                
+            }
+            
+            function ans_style_changed(){
+                document.getElementById("ans_style_1").disabled
+                        = document.getElementById("ans_style_2").disabled
+                        = !(document.getElementById("ans_style").checked);
+            }
+            
+            
+            // その他の関数
+            
+            function value3(id0, id1, id2){
+                let id = String(id0) + String(id1) + String(id2);
+                let value = document.getElementById(id).value;
+                if(document.getElementById("comma_dot").checked) {value = value.replace(",",".");}
+                    else {value = value.replace(",","");}  // コンマを小数点として用いる方式に対応
+                return value;
+            }
+            
+            function value3Math(id0, id1, id2){  // 値の取得 + NaN(未入力)処理
+                let math = parseFloat(value3(id0, id1, id2));
+                if(isNaN(math)){  // 何も入力されていない場合
+                    if(id0 === 0) {math = 0;}
+                    if(1 <= id0 && id0 <= 4){
+                        if(id2 === 0) {math = 1;}
+                        if(id2 === 1 || id2 === 2 || id2 === 3) {math = 0;}
+                    }
+                }
+                if(value3(id0, id1, id2).replace(/\D/g,"") !== "")  // 数値以外が存在するとき
+                    {math = fix(math, id0, id1, id2);}  // SI接頭辞処理
+                return math;
+            }
+            function fix(math, id0, id1, id2){  // SI接頭辞処理
+                let str = value3(id0, id1, id2).replace(/\d|\.|,|\s/g,"");
+                        // 数字(0-9)･ピリオド･カンマ･空白 の除去
+                for(let i = 0; i < prefix.length; i++){
+                    if(str === prefix[i][0]) {
+                        if(math === 0) {math = 1;}
+                        math *= Math.pow(prefix[i][1], prefix[i][2]);
+                    }
+                }
+                return math;
+            }
+            
+            function corr(array){
+                // 指数処理
+                if(array[2] % 1 === 0.5){
+                    array[0] *= Math.pow(10, 0.5);
+                    array[1] *= Math.pow(10, 0.5);
+                    array[2] -= 0.5;
+                }
+                while(Math.abs(array[0]) >= 10){
+                    array[0] /= 10, array[1] /= 10, array[2] += 1;
+                }
+                while(Math.abs(array[0]) < 1 && array[0] !== 0){
+                    array[0] *= 10, array[1] *= 10, array[2] -= 1;
+                }
+                
+                // 解答の形が指定された場合
+                if(document.getElementById("ans_style").checked
+                        && array[1] > 0.0000000001){
+                    let style_1 = document.getElementById("ans_style_1").value;
+                    let style_2 = document.getElementById("ans_style_2").checked;
+                    
+                    let n = 0;
+                    while(array[1] < Math.pow(10, Math.floor(style_1)-1)){
+                        array[0] *= 10, array[1] *= 10; n++;
+                    }
+                    array[0] = Math.round(array[0]);
+                    if(style_2) {array[1] = Math.ceil(array[1]);}
+                           else {array[1] = Math.round(array[1]);}
+                    //while(n > 0) {array[0] /= 10; array[1] /= 10; n--;}
+                    array[0] /= Math.pow(10, n), array[1] /= Math.pow(10, n);
+                }
+                
+                //array[0] = Math.pow(10, -15) * Math.round(array[0] * Math.pow(10, 15));
+                //array[1] = Math.pow(10, -15) * Math.round(array[1] * Math.pow(10, 15));
+            }
+            
+            function noorder(array){
+                while(array[2] > 0){
+                    array[0] /= 10, array[1] /= 10, array[2] += 1;
+                }
+                while(array[2] < 0){
+                    array[0] *= 10, array[1] *= 10, array[2] -= 1;
+                }
+            }
+            
+            // 不確かさの入力を有効にする
+            function u_enable(){
+                for(let i = 0; i < 3; i++){
+                    for(let j = 0; j < 5; j++){
+                        let id = String(i) + String(j) + "1";
+                        document.getElementById(id).disabled
+                                = !(document.getElementById("u_enable").checked);
+                    }
+                }
+            }
+            
+            // 相対不確かさの入力を有効にする
+            function u2_enable(){
+                for(let i = 0; i < 3; i++){
+                    for(let j = 0; j < 5; j++){
+                        let id = String(i) + String(j) + "3";
+                        document.getElementById(id).disabled
+                                = !(document.getElementById("u2_enable").checked);
+                    }
+                }
+            }
+            
+            function changed(id1, id2, id3){
+                if(id3 === 2) {return 0;}
+                define1();
+                let array012 = [array0, array1, array2];
+                let xx = String(id1) + String(id2);
+                if(id3 === 0){
+                    let disabled_1 = document.getElementById(xx + "1").disabled,
+                        disabled_2 = document.getElementById(xx + "3").disabled;
+                    if(array012[id1][id2][1] === 0 && array012[id1][id2][3] === 0) {return 0;}
+                    else if((disabled_1 && !disabled_2) || array012[id1][id2][1] === 0)
+                        {changed(id1, id2, 3); return 0;}
+                    else if((!disabled_1 && disabled_2) || array012[id1][id2][3] === 0)
+                        {changed(id1, id2, 1); return 0;}
+                    else {}
+                } else if(id3 === 1 && array012[id1][id2][1] !== 0) {
+                    document.getElementById(xx + "3").value
+                            = array012[id1][id2][1] / array012[id1][id2][0];
+                } else if(id3 === 2) {
+                    return 0;
+                } else if(id3 === 3 && array012[id1][id2][3] !== 0) {
+                    document.getElementById(xx + "1").value
+                            = array012[id1][id2][3] * array012[id1][id2][0];
+                }
+            }
+            
+            var reset_alert = true;
+            function reset(a,b){
+                if(b < 0){
+                    if(reset_alert === false || 
+                            confirm("この項目の全ての値を消去しますか？")){
+                        let bMax = -b; reset_alert = false;
+                        for(b = 0; b <= bMax; b++) {reset(a,b);}
+                        if(a === 1) {reset(2,-4);}
+                        reset_alert = true;
+                    }
+                } else {
+                    if(reset_alert === false || confirm("値を消去しますか？")){
+                        for(let i = 0; i < 4; i++){
+                            let reset_id = String(a) + String(b) + String(i);
+                            document.getElementById(reset_id).value = "";
+                        }
+                    }
+                }
+            }
+            
+            
+            
+            // データベース・変換
+            function nChange(){
+                let n = "", elements = document.getElementsByName("consts");
+                for(let i = 0; i < elements.length; i++){
+                    if(elements[i].checked) {n = elements[i].value;}
+                }
+                if(n === "n271") {return [2.71828182845905,               0,   0];}
+                if(n === "n314") {return [3.14159265358979,               0,   0];}
+                if(n === "n662") {return [6.62607015      ,               0, -34];}
+                if(n === "n910") {return [9.1093837015    ,    0.0000000028, -31];}
+                if(n === "n138") {return [1.380649        ,               0, -23];}
+                if(n === "n160") {return [1.602176634     ,               0, -19];}
+                if(n === "n885") {return [8.8541878128    ,    0.0000000013, -12];}
+                if(n === "n125") {return [1.25663706212   ,   0.00000000019,  -6];}
+                if(n === "n299") {return [2.99792458      ,               0,   8];}
+                if(n === "n602") {return [6.02214076      ,               0,  23];}
+                if(n === "n000") {return [0               ,               0,   0];}
+                else {return undefined;}
+            }
+            
+            // 広告非表示
+            var Ad = "";
+            function hideAd(bool){
+                if(bool === true){
+                    Ad = document.getElementById("nav").innerHTML;
+                    document.getElementById("nav").innerHTML
+                        = "<b>電気磁気学Ｃの課題で お困りですね？</b><br>"
+                        + "<input type='button' value='◎ ヒントをもらう' onClick='hideAd(false)'>";
+                    document.getElementById("nav").style.border = "3px double #000";
+                    document.getElementById("nav").style.maxWidth = "25%";
+                } else {
+                    document.getElementById("nav").innerHTML = Ad;
+                    document.getElementById("nav").style.border = "5px double red";
+                    document.getElementById("nav").style.maxWidth = "45%";
+                }
+            }
+            /*
+            function rounder(a, b){
+                a = Math.round(a * Math.pow(10, b)) / Math.pow(10, b);
+                a = Math.round(a);
+            }
+            
+            function ById(id,text){
+                document.getElementById(id).innerHTML = text;
+            }
+            
+            function value(id){
+                return document.getElementById(id).value;
+            }
+            */
+            
+            //alert("ようこそ");
+        </script>
+    </body>
+</html>
+
+
+
+<!--
+数学定数・物理定数 参考文献 : wikipedia 2022/09/24 ごろ
+
+
+        ・ <a href="#3">指数 編</a><br>
+        ・ <a href="#4">対数 編</a><br>
+
+        <h2 id="3">指数 編</h2>
+        Under Construction .... Ｙの不確かさが入力できません
+        
+        <h3>仕様</h3>
+        "<b> Ｘ<sup>Ｙ</sup> </b>"&emsp;( Ｘ の Ｙ 乗 )&emsp;を計算します。<br>
+        ※ 空欄があっても、計算されます。<br>
+        ※ Ａ と Ｂ は 負の数 でもＯＫ、Ｂ は 分数 でもＯＫ<br><br>
+        
+        <h3>入力欄 (指数)</h3>
+        <span id="3xx">
+            Ｘ = ( <input type="text" id="300" size="5"> ±
+              <input type="text" id="301" size="5"> ) ×
+              10<sup><input type="text" id="302" size="1"></sup><br>
+            Ｙ = ( <input type="text" id="310" size="5"> ±
+              <input type="text" id="311" size="5"> ) ×
+              10<sup><input type="text" id="312" size="1"></sup><br>
+        </span>
+        
+        <input type="button" value="計算実行" class="btn" onClick="go3()"><br>
+        
+        <h3><span class="resTop">&ensp;計 算 結 果&ensp;</span></h3>
+        RESULT : <b id="result3">？？？</b><br>計算結果を代入する場合: 
+        <select id="select_3" onChange="Selected(3)">
+            <option value="default" selected>結果の代入先を選択する</option>
+            <optgroup label="和・差 編:">
+            <option value="00">Ａ</option> <option value="01">Ｂ</option>
+            <option value="02">Ｃ</option> <option value="03">Ｄ</option>
+            <option value="04">Ｅ</option> </optgroup>
+            <optgroup label="積・商 編 分子:">
+            <option value="10">①</option> <option value="11">②</option>
+            <option value="12">③</option> <option value="13">④</option>
+            <option value="14">⑤</option> </optgroup>
+            <optgroup label="積・商 編 分母:">
+            <option value="20">❶</option> <option value="21">❷</option>
+            <option value="22">❸</option> <option value="23">❹</option>
+            <option value="24">❺</option> </optgroup>
+        </select><br>
+        
+        
+        
+        
+        
+        <h2 id="4">対数 編</h2>
+        Under Construction .... Ｙの不確かさが入力できません
+        
+        <h3>仕様</h3>
+        "<b> log<sub>Ｘ</sub>Ｙ </b>"&ensp;を計算します。<br>
+        ※ 空欄があっても、計算されます。<br>
+        ※ Ａ と Ｂ は 負の数 でもＯＫ、Ｂ は 分数 でもＯＫ<br><br>
+        
+        <h3>入力欄 (対数)</h3>
+        <span id="4xx">
+            Ｘ = ( <input type="text" id="400" size="5"> ±
+              <input type="text" id="401" size="5"> ) ×
+              10<sup><input type="text" id="402" size="1"></sup><br>
+            Ｙ = ( <input type="text" id="410" size="5"> ±
+              <input type="text" id="411" size="5"> ) ×
+              10<sup><input type="text" id="412" size="1"></sup><br>
+        </span>
+        
+        <input type="button" value="計算実行" class="btn" onClick="go4()"><br>
+        
+        <h3><span class="resTop">&ensp;計 算 結 果&ensp;</span></h3>
+        RESULT : <b id="result4">？？？</b><br>計算結果を代入する場合: 
+        <select id="select_4" onChange="Selected(4)">
+            <option value="default" selected>結果の代入先を選択する</option>
+            <optgroup label="和・差 編:">
+            <option value="00">Ａ</option> <option value="01">Ｂ</option>
+            <option value="02">Ｃ</option> <option value="03">Ｄ</option>
+            <option value="04">Ｅ</option> </optgroup>
+            <optgroup label="積・商 編 分子:">
+            <option value="10">①</option> <option value="11">②</option>
+            <option value="12">③</option> <option value="13">④</option>
+            <option value="14">⑤</option> </optgroup>
+            <optgroup label="積・商 編 分母:">
+            <option value="20">❶</option> <option value="21">❷</option>
+            <option value="22">❸</option> <option value="23">❹</option>
+            <option value="24">❺</option> </optgroup>
+        </select><br>
+
+
+script
+            for(let i = 0; i < 5; i++){
+                //document.getElementById("0" + i + "2").disabled = true;
+            }/*
+            document.getElementById("302").disabled = true;
+            document.getElementById("311").disabled = true;
+            document.getElementById("312").disabled = true;
+            document.getElementById("401").disabled = true;
+            document.getElementById("402").disabled = true;
+            document.getElementById("412").disabled = true;
+            */
+
+            // 指数 編
+            function go3(){
+                let v = [], w = [];
+                for(let i = 0; i < 3; i++){
+                    v[i] = value3Math(3, 0, i);
+                    w[i] = value3Math(3, 1, i);
+                }
+                result3[0] = Math.pow(v[0], w[0]);
+                result3[1] = v[1] * w[0];
+                
+                document.getElementById("result3").innerHTML
+                    = "(&nbsp;" + result3[0] + "&nbsp;±&nbsp;" + result3[1]
+                    + "&nbsp;)&nbsp;×&nbsp;10<sup>" + result3[2] + "</sup>";
+            }
+            
+            // 対数 編
+            function go4(){
+                let x = [], y = [];
+                for(let i = 0; i < 3; i++){
+                    x[i] = value3Math(4, 0, i); //alert(x[i]);
+                    y[i] = value3Math(4, 1, i);
+                }
+                result4[0] = Math.log(y[0]) / Math.log(x[0]);
+                if(y[0] === 1) {result4[0] = 0;}
+                
+                document.getElementById("result4").innerHTML
+                    = "(&nbsp;" + result4[0] + "&nbsp;±&nbsp;" + result4[1]
+                    + "&nbsp;)&nbsp;×&nbsp;10<sup>" + result4[2] + "</sup><br>";
+                if(x[0] === 1){
+                    document.getElementById("result4").innerHTML= "エラー ERROR<br>"
+                        + "X = 1 のとき、log<sub>x</sub>Y は定義されません";
+                    document.getElementById("select_4").disabled = true;
+                }
+            }
+
+                /*
+                // 四捨五入の処理: 小数第10位以下を四捨五入 (＋文字列型に変換)
+                for(let i = 0; i < 3; i++){
+                    array[i] = String(array[i]).substr(0, show+2);
+                    if(array[i].length === 1) {array[i] += ".0";}
+                    while(array[i].length < show+3) {array[i] += "0";}
+                    if(parseInt(array[i].substr(show+2)) >= 5){
+                        array[i] += Math.pow(0.1, show);
+                    }
+                    array[i] = String(array[i]).substr(0, show+1);
+                    if(i === 1) {i++;} // (i === 2) のとき(指数部分)をskip
+                }
+                */
+
+
+                    /*
+                    for(let i = 0; i < 2; i++){
+                        array[i] *= Math.pow(10, Math.floor(style_1));
+                        if(style_2){
+                            array[i] = Math.ceil(array[i]);
+                        } else {
+                            array[i] = Math.round(array[i]);
+                        }
+                        array[i] /= Math.pow(10, Math.floor(style_1));
+                    }
+                    */
+                    
+                    /*
+                    // 丸め誤差対策
+                    for(let i = 0; i <= 1; i++){
+                        array[i] *= Math.pow(10, n);
+                        array[i] =  Math.round(array[i]);
+                        array[i] /= Math.pow(10, n);
+                    }*/
+
+
+var define_bool_1, define_bool_2;  // 不確かさ,相対不確かさに入力があればtrueになる
+define_bool_1 = false, define_bool_2 = false;
+
+function define3(){
+                for(let i = 0; i < 5; i++){
+                    array0[i][1] = Math.abs(array0[i][3] * array0[i][0]);
+                    array1[i][1] = Math.abs(array1[i][3] * array1[i][0]);
+                    array2[i][1] = Math.abs(array2[i][3] * array2[i][0]);
+                }
+            }
+
+if(define_bool_2 === false) {define2();}
+                else if(define_bool_1 === false || define_bool_2 === true) {define3();}
+                else{alert("不確かさと相対不確かさを同時に指定できません。");}
+
+ else if(id2 === 1) {defing_bool_1 = true;}
+                  else if(id2 === 3) {defing_bool_2 = true;}
+-->
