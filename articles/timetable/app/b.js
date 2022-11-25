@@ -190,7 +190,7 @@ function nowClock(){
     debug("test1_" + t0_m);
     
     for(i = 0; i < i_max; i++){
-        output("add-"+i, "test1_" + t0_s);
+        //output("add-"+i, "test1_" + t0_s);
         
         var timelimit = [next[i][0] - t0_h, next[i][2] - t0_m - 1, 60 - t0_s];
         if(timelimit[2] === 60) {timelimit[2] = 0, timelimit[1] += 1;}
