@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158096034-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-158096034-1');
+        </script>
+
+        <meta charset="utf-8">
+        <title>記事の例</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- OGP設定 リンクは記事毎に変更してください -->
+	<meta property="og:title" content="EIC電気工学研究会 公式ページ | " />
+	<meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.ed.tus.ac.jp/eic/articles/example/index.html" />
+        <meta property="og:image" content="https://www.ed.tus.ac.jp/eic/img/EIC.png" />
+        <meta property="og:site_name" content="EIC電気工学研究会 公式ページ | " />
+        <meta property="og:description" content="電気工学研究会は東京理科大学野田キャンパスで活動するサークルです。" />
+        <!-- ※Twitter共通設定 -->
+        <meta name="twitter:card" content="summary" />
+        
+        <!-- ファビコン -->
+        <link rel="icon" href="./img/favicon.ico">
+        
+        <!-- bootstrapで必要なcss・jsの読み込み-->
+        <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../../css/style.css">
+        <script src="../../js/bootstrap.min.js"></script>
+        
+        <style>
+            article h3 { margin-top: 1em; }
+        </style>
+    </head>
+    <body class="bg-light">
+
+    <!-- 共通部分（全てのページで表示する部分）場合によっては相対パスの修正が必要 -->
+        <!-- navbar 上に固定する-->
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html"><img src="../../img/EIC.png" width="50" height="50"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../about.html">サークル情報</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../../articles.html">記事・作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../participation.html">入部希望の方へ</a>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+    <!-- 共通部分ここまで -->
+    
+    <div class="container bg-white my-5 shadow">
+
+        <article class="py-3">
+            <!-- ここから記事を書き始めてください 例を乗っけます-->
+
+            <h2>2Dアクションゲーム</h2>
+            <p>2023/01/13</p>
+            <hr>
+            <h3 style="margin-top: 0;">ゲームへのリンク</h3>
+            <p>ゲームは <a href="https://unityroom.com/games/test123456789">https://unityroom.com/games/test123456789</a>
+               にアクセスすると、誰でもプレイできます。ぜひお試しください。</p>
+            <p>使用環境としてはパソコンを想定しています。</p>
+            <p>なお、PCの環境によっては正しく動作しない可能性があります。予めご了承ください。</p>
+            
+            <h3>ゲームの説明･遊び方</h3>
+            <p>このゲームは、2Dのアクションゲームです。</p>
+            <p>パソコンの｢←｣｢→｣キーでキャラクタが左右に移動します。｢↑｣キーでジャンプします。</p>
+            <p>ステージ上の足場を駆使して上へ上へと登り、ゴールを目指してください。</p>
+            <p>ただし、トゲやテキ(敵)からダメージを受けるとライフが１減り、スタート地点などに戻されてしまいます！</p>
+            <p>ライフが０の状態で当たるとゲームオーバーです。</p>
+            <p>なお、テキは上から踏むと倒すことができます。テキを倒したり、道中のコインを獲得すると、Scoreを獲得します。</p>
+            <img src="img/enemies.jpg" alt="トゲ･テキ･アイテム">
+            
+            <h3>ゲームの開発について</h3>
+            <p>漠然とゲームを作ってみたいと思って、制作しました。</p>
+            <p>初めての挑戦だったので、YouTubeの解説動画などを参考にして制作しました。</p>
+            <p>それでも、エラーやバグで心が折れそうになりましたが、無事に作り終えることができました。</p>
+            
+            <!-- 記事終了部 -->
+        </article>
+
+    </div>
+
+    <!-- footer部分 ここも共通部分-->
+    <footer class="py-5">
+        <div class="container">
+            <a href="#" class="btn btn-dark float-end mb-1">
+                トップに戻る
+            </a>
+            <p class="mb-1">&copy; 2021 電気工学研究会</p>
+            <p class="mb-0">Twitter:@EIC_tus</p>
+            <p class="mb-0">GitHub:tuseic</p>
+        </div>
+    </footer>
+    
+    </body>
+</html>
