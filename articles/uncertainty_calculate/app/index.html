@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>不確かさ 自動計算機</title>
@@ -21,13 +16,13 @@ and open the template in the editor.
                      top: 0;  right: 0;  padding: 10px 10px 10px 10px;
                      background-color: yellow;  border: 5px double red;
                      overflow-y: scroll;}
-            #nav h2 {margin-top: 10px;  margin-bottom: 2px;  color: #fff;
+            #nav h2 {margin-top: 10px;  margin-bottom: 2px;  padding-left: 5px;  padding-right: 5px;  color: #fff;
                      text-decoration: underline;  background-color: red;}
             #nav .A {margin-top: 10px;  margin-bottom: 0;  color: #fff;  font-weight: bold;
                      background-color: #000;}
             #nav a  {font-weight: bold;  font-size: large;  margin-top: 10px;  color: blue;}
             #nav b  {text-decoration: underline;}
-            #nav p  {margin-top: 10px;  margin-bottom: 10px;}
+            #nav p  {margin-top: 10px;  margin-bottom: 10px;  margin-left: 15px;}
             #nav ul {margin-top: 10px;  margin-bottom: 10px;}
             
             
@@ -53,32 +48,21 @@ and open the template in the editor.
         
         <nav id="nav">
             (広告 Advertisememt)
-            <input type="button" value="× 広告を折りたたむ" onClick="hideAd(true)"
+            <input type="button" value="× 注意事項･広告を折りたたむ" onClick="hideAd(true)"
                    style="float: right;"><br>
-            <h2>電気磁気学Ｃの履修者へ 朗報！</h2>
-            <a href="https://colab.research.google.com/drive/1Ry7hUMcjRtykxlTLrh_zX3EqJ-hLqgCs?usp=share_link"
-                    target="_blank" rel="noreferrer noopener">
-                    ★ Click HERE ! ★ コンデンサ端部の電界シミュレーション ★</a><br>
-            <p>&ensp;・ シミュレーションの書き方が分からない……(泣)<br>
-               &ensp;・ Pythonの使い方が分からないよ……<br>
-               &ensp;・ 誰かのソースをコピペしたいけど、どれが良いの？</p>
-            <span class="A">&nbsp;そんな あなたには コレ!!&nbsp;</span><br>
-            <a href="https://colab.research.google.com/drive/1Ry7hUMcjRtykxlTLrh_zX3EqJ-hLqgCs?usp=share_link"
-                    target="_blank" rel="noreferrer noopener">
-                    ★ Click HERE ! ★ コンデンサ端部の電界シミュレーション ★</a><br>
+            <h2>注意: 当システムについて</h2>
+            <p>計算の誤り･バグ等が万一生じた場合でも、責任は取りかねます。ご注意ください。</p>
+            <h2>広告: 電気工学研究会について</h2>
+            <p><b>こんな理科大生にオススメです！</b></p>
             <ul>
-                <li>詳しい <b>解説コメント付き</b>！</li>
-                <li>ソース作成に必要な <b>基本的な考え方も記載</b>！</li>
-                <li>作成者は 今年度GPA 3.30 のガチ勢! だから <b>信頼できる</b>！</li>
-                <li>ソース作成者に <b>気軽に質問できる</b>！ (履修者限定)</li>
+                <li><b>電気 or 電子 or 情報工学</b> に関する知識が欲しい</li>
+                <li>一緒に<b>勉強や試験対策</b>をする仲間が欲しい！</li>
+                <li>留年したくないので <del>過去レポ等が欲しい</del>！</li>
             </ul>
-            <h2>もう これを使うしかない！！</h2>
-            <a href="https://colab.research.google.com/drive/1Ry7hUMcjRtykxlTLrh_zX3EqJ-hLqgCs?usp=share_link"
-                    target="_blank" rel="noreferrer noopener">
-                    ★ Click HERE ! ★ コンデンサ端部の電界シミュレーション ★</a><br>
-            <p>&emsp;僕のソースを電磁気Ｃの課題に利用するときには、レポートの
-                    "参考にしたソース" 欄への記載を忘れないでくださいね。</p>
-            <input type="button" value="× 広告を折りたたむ" onClick="hideAd(true)"><br>
+            <h2>もはや 電気工学研究会に入部するしかない！</h2>
+            <p>連絡先は <a href="https://ee-jan-icar.github.io/EIC/participation.html#contact_us">こちら</a>
+               です。お待ちしております！</p>
+            <input type="button" value="× 注意事項･広告を折りたたむ" onClick="hideAd(true)"><br>
         </nav>
         
         
@@ -686,7 +670,7 @@ and open the template in the editor.
                 if(bool === true){
                     Ad = document.getElementById("nav").innerHTML;
                     document.getElementById("nav").innerHTML
-                        = "<b>電気磁気学Ｃの課題で お困りですね？</b><br>"
+                        = "<b>授業で出された課題で お困りですね？</b><br>"
                         + "<input type='button' value='◎ ヒントをもらう' onClick='hideAd(false)'>";
                     document.getElementById("nav").style.border = "3px double #000";
                     document.getElementById("nav").style.maxWidth = "25%";
