@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>すぐ見栄えるHTML編集</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            * { font-family: sans-serif; }
+            
+            /*
+            #textarea { height: 10em;  width: 50em;  margin: 2em 0; }
+            #output { height: 50em;  width: 50em;  margin: 2em 0;  border: solid 2px #000;  background-color: #fff;
+                      overflow: scroll;  resize: both; }
+            */
+            #output { border: solid 2px #ff8c00;  background-color: #fff; }
+            
+            .container { display: flex;  margin: 1em 0;
+                         border: solid 2px #000000;  background-color: #fff;  height: 32em; }
+            .container * { flex: 1;  resize: none; }
+            
+            details { margin: 2em 0; }
+            details summary { text-decoration: underline;  user-select: none;  max-width: 6em; }
+            details summary:hover, a:hover { background-color: yellow; }
+            
+            body { background-color: #ccff99;  margin: 1em 1em 10em 1em;  overscroll-behavior: contain; }
+            
+            a { color: blue; }
+            input[type="button"] { font-size: 1.5em; }
+        </style>
+    </head>
+    
+    <body>
+        <h1>すぐ見栄えるHTML編集</h1>
+        <div>説明文などは <a href="../index.html">こちらをクリック</a></div>
+        
+        <details>
+            <summary>詳細設定</summary>
+            <label><input type="checkbox" id="save" onChange="output();">自動保存 (LocalStorageを使用します)</label><br>
+            <label><input type="checkbox" id="noSpellcheck" onChange="noSpellcheck();" checked>ブラウザのスペルチェック機能を使用しない</label><br>
+            <label><input type="checkbox" id="interval" onChange="auto_output();" checked>自動更新する</label><br><br>
+        </details>
+        
+        <input type="button" value="サンプルプログラム１" onClick="call('sample1');"><br>
+        
+        <div class="container">
+            <textarea id="textarea" onChange="save();"></textarea>
+            <iframe id="output"></iframe>
+        </div>
+        
+        <script>
+            //localStorage.removeItem("f2023");  // データ強制リセット
+            document.getElementById("textarea").value = localStorage.getItem("f2023");
+            document.getElementById("save").checked = localStorage.getItem("f2023");
+            noSpellcheck();
+            var interval;
+            output();
+            auto_output();
+            
+            function save() {
+                if(document.getElementById("save").checked) {
+                    localStorage.setItem("f2023", document.getElementById("textarea").value);
+                } else {
+                    localStorage.removeItem("f2023");
+                }
+            }
+            
+            function output() {
+                if(document.getElementById("output").srcdoc !== document.getElementById("textarea").value){
+                    document.getElementById("output").srcdoc = document.getElementById("textarea").value;
+                }
+                console.log("output: " + document.getElementById("output").srcdoc);
+                save();
+            }
+            
+            function noSpellcheck() {
+                document.getElementById("textarea").spellcheck = !document.getElementById("noSpellcheck").checked;
+            }
+            
+            function auto_output() {
+                if(document.getElementById("interval").checked) {
+                    interval = setInterval(output, 100);
+                } else {
+                    clearInterval(interval);
+                }
+            }
+            
+            function call(address) {
+                if(!confirm("サンプルプログラムを表示します。\nよろしいですか？")) { return; }
+                if(address === "sample1"){
+                    document.getElementById("textarea").value
+                        = "<!DOCTYPE html>\n<html>\n<head>\n    <title>サンプル</title>\n    <style>\n        "
+                        + "body { background-color: white; }\n        .testA { background-color: yellow; }\n        "
+                        + ".testB { background-color: orange; }\n        .testC { text-decoration: underline; }\n    </style>\n"
+                        + "</head>\n<body>\n    <h1>HTML編集体験</h1>\n    <h2>やってみよう</h2>\n    <ul>\n        "
+                        + "<li>\"background-color: white;\" を red や green や black などにすると？</li>\n        "
+                        + "<li class=\"testA\">class=\"testA\" を \"testB\" または \"testC\" にすると？</li>\n        "
+                        + "<li>\"&lt;b&gt;太字かな&lt;/b&gt;\" の &lt;b&gt; と &lt;/b&gt; (bタグ) を消すと？</li>\n        "
+                        + "<li>その後ろの &lt;br&gt; (brタグ) を消すと？</li>\n        "
+                        + "<li>&amp;lt; と &amp;gt; を \"&lt;\" と \"&gt;\" に書き換えると？</li>\n        "
+                        + "<li>その他 色々と試してみてください</li>\n    </ul>\n    "
+                        + "<div>test: <b>太字かな</b><br>brタグで改行される</div>\n</body>\n</html>";
+                }
+            }
+        </script>
+    </body>
+</html>
