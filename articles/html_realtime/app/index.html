@@ -87,20 +87,23 @@
             
             function call(address) {
                 if(!confirm("サンプルプログラムを表示します。\nよろしいですか？")) { return; }
-                if(address === "sample1"){
-                    document.getElementById("textarea").value
-                        = "<!DOCTYPE html>\n<html>\n<head>\n    <title>サンプル</title>\n    <style>\n        "
-                        + "body { background-color: white; }\n        .testA { background-color: yellow; }\n        "
-                        + ".testB { background-color: orange; }\n        .testC { text-decoration: underline; }\n    </style>\n"
-                        + "</head>\n<body>\n    <h1>HTML編集体験</h1>\n    <h2>やってみよう</h2>\n    <ul>\n        "
-                        + "<li>\"background-color: white;\" を red や green や black などにすると？</li>\n        "
-                        + "<li class=\"testA\">class=\"testA\" を \"testB\" または \"testC\" にすると？</li>\n        "
-                        + "<li>\"&lt;b&gt;太字かな&lt;/b&gt;\" の &lt;b&gt; と &lt;/b&gt; (bタグ) を消すと？</li>\n        "
-                        + "<li>その後ろの &lt;br&gt; (brタグ) を消すと？</li>\n        "
-                        + "<li>&amp;lt; と &amp;gt; を \"&lt;\" と \"&gt;\" に書き換えると？</li>\n        "
-                        + "<li>その他 色々と試してみてください</li>\n    </ul>\n    "
-                        + "<div>test: <b>太字かな</b><br>brタグで改行される</div>\n</body>\n</html>";
-                }
+                document.getElementById("textarea").value = "";
+                if(address === "sample1") { setTimeout(sample1, 300); }
+            }
+            
+            function sample1(){
+                document.getElementById("textarea").value
+                    = "<!DOCTYPE html>\n<html>\n<head>\n    <title>サンプル</title>\n    <style>\n        "
+                    + "body { background-color: white; }\n        .testA { background-color: yellow; }\n        "
+                    + ".testB { background-color: orange; }\n        .testC { text-decoration: underline; }\n    </style>\n"
+                    + "</head>\n<body>\n    <h1>HTML編集体験</h1>\n    <h2>やってみよう</h2>\n    <ul>\n        "
+                    + "<li>\"background-color: white;\" を red や green や black などにすると？</li>\n        "
+                    + "<li class=\"testA\">class=\"testA\" を \"testB\" または \"testC\" にすると？</li>\n        "
+                    + "<li>\"&lt;b&gt;太字かな&lt;/b&gt;\" の &lt;b&gt; と &lt;/b&gt; (bタグ) を消すと？</li>\n        "
+                    + "<li>その後ろの &lt;br&gt; (brタグ) を消すと？</li>\n        "
+                    + "<li>&amp;lt; と &amp;gt; を \"&lt;\" と \"&gt;\" に書き換えると？</li>\n        "
+                    + "<li>その他 色々と試してみてください</li>\n    </ul>\n    "
+                    + "<div>test: <b>太字かな</b><br>brタグで改行される</div>\n</body>\n</html>";
             }
         </script>
     </body>
